@@ -1,6 +1,10 @@
 import * as React from "react";
 import { AppRegistry } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
+import AuthReducer from "./src/store/reducers/Auth";
 import { name as appName } from "./app.json";
 import AppNavigator from "./src/navigator/AppNavigator";
 import AppLoading from "expo-app-loading";
@@ -10,6 +14,12 @@ const fetchFonts = () => {
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),
 	});
 };
+
+const rootReducer = combineReducers({
+	Auth: AuthReducer,
+});
+
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
 	const [fontLoaded, setFontLoaded] = React.useState(false);
@@ -26,9 +36,11 @@ export default function App() {
 		);
 	}
 	return (
-		<PaperProvider>
-			<AppNavigator />
-		</PaperProvider>
+		<Provider store={store}>
+			<PaperProvider>
+				<AppNavigator />
+			</PaperProvider>
+		</Provider>
 	);
 }
 
