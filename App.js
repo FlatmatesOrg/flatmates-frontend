@@ -1,21 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { AppRegistry } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
+import { name as appName } from "./app.json";
+import AppNavigator from "./src/navigator/AppNavigator";
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
+const fetchFonts = () => {
+	return Font.loadAsync({
+		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),
+	});
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	const [fontLoaded, setFontLoaded] = React.useState(false);
+
+	if (!fontLoaded) {
+		return (
+			<AppLoading
+				startAsync={fetchFonts}
+				onError={console.warn}
+				onFinish={() => {
+					setFontLoaded(true);
+				}}
+			/>
+		);
+	}
+	return (
+		<PaperProvider>
+			<AppNavigator />
+		</PaperProvider>
+	);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+AppRegistry.registerComponent(appName, () => App);
