@@ -5,6 +5,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
+import UserReducer from "./src/store/reducers/User";
 import { name as appName } from "./app.json";
 import AppNavigator from "./src/navigator/AppNavigator";
 import AppLoading from "expo-app-loading";
@@ -17,6 +18,7 @@ const fetchFonts = () => {
 
 const rootReducer = combineReducers({
 	Auth: AuthReducer,
+	User: UserReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
