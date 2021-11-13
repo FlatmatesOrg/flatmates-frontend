@@ -7,15 +7,42 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Image,
+	ToastAndroid,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 import PhoneInput from "react-native-phone-number-input";
-import { Button } from "react-native-paper";
+import { Button, Snackbar } from "react-native-paper";
+import * as authActions from "../../store/actions/Auth";
+import { useDispatch } from "react-redux";
 export default function LoginScreen({ navigation }) {
 	const [value, setValue] = useState("");
 	const phoneInput = useRef(null);
+	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(false);
+
+	const sendOtpHandler = async () => {
+		try {
+			setIsLoading(true);
+			const response = await dispatch(authActions.login(value));
+			if (response && response.message) {
+				if (Platform.OS === "android") {
+					ToastAndroid.show(response.message, ToastAndroid.SHORT);
+				} else {
+					alert(response.message);
+				}
+				setIsLoading(false);
+			} else {
+				navigation.navigate("OTP", { phoneNumber: value, signUp: false });
+			}
+		} catch (error) {
+			console.log(error);
+			setIsLoading(false);
+			alert("Something went wrong");
+		}
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<TouchableOpacity onPress={() => navigation.navigate("GetStarted")}>
@@ -46,13 +73,12 @@ export default function LoginScreen({ navigation }) {
 				autoFocus
 			/>
 			<Button
+				loading={isLoading}
 				disabled={
 					!phoneInput.current?.isValidNumber(value) ||
 					!phoneInput.current?.getCountryCode() === "IN"
 				}
-				onPress={() =>
-					navigation.navigate("OTP", { phoneNumber: value, signUp: false })
-				}
+				onPress={() => sendOtpHandler()}
 				dark
 				color={Colors.secondary}
 				style={styles.button}
@@ -61,6 +87,7 @@ export default function LoginScreen({ navigation }) {
 			>
 				Continue
 			</Button>
+
 			<Image
 				resizeMode="cover"
 				style={styles.image}

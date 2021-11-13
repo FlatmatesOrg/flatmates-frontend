@@ -10,6 +10,9 @@ import { name as appName } from "./app.json";
 import AppNavigator from "./src/navigator/AppNavigator";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
+import axios from "axios";
+
+axios.defaults.baseURL = "https://bc95-106-202-183-216.ngrok.io";
 const fetchFonts = () => {
 	return Font.loadAsync({
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),

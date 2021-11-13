@@ -7,14 +7,59 @@ import {
 	Platform,
 	TouchableOpacity,
 	Image,
+	ToastAndroid,
 } from "react-native";
 import Colors from "../../constants/Colors";
 import { Entypo } from "@expo/vector-icons";
 import OTPInputView from "@twotalltotems/react-native-otp-input";
 import { Button } from "react-native-paper";
+import * as authActions from "../../store/actions/Auth";
+import { useDispatch } from "react-redux";
 export default function OTPScreen({ route, navigation }) {
 	const [code, setCode] = useState("");
 	const { phoneNumber, signUp } = route.params;
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
+	const onCodeFilled = async () => {
+		if (signUp) {
+			try {
+				setIsLoading(true);
+				const response = await dispatch(
+					authActions.signUpVerify(phoneNumber, code)
+				);
+				if (response && response.message) {
+					if (Platform.OS === "android") {
+						ToastAndroid.show(response.message, ToastAndroid.SHORT);
+					} else {
+						alert(response.message);
+					}
+					setIsLoading(false);
+				}
+			} catch (error) {
+				setIsLoading(false);
+				alert("Something went wrong");
+			}
+		} else {
+			try {
+				setIsLoading(true);
+				const response = await dispatch(
+					authActions.loginVerify(phoneNumber, code)
+				);
+				if (response && response.message) {
+					if (Platform.OS === "android") {
+						ToastAndroid.show(response.message, ToastAndroid.SHORT);
+					} else {
+						alert(response.message);
+					}
+					setIsLoading(false);
+				}
+				if (response) setIsLoading(false);
+			} catch (error) {
+				setIsLoading(false);
+				alert("Something went wrong");
+			}
+		}
+	};
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -42,9 +87,11 @@ export default function OTPScreen({ route, navigation }) {
 			<View style={{ height: "5%" }} />
 			<Button
 				dark
+				loading={isLoading}
 				color={Colors.secondary}
 				style={styles.button}
 				mode="contained"
+				onPress={() => onCodeFilled()}
 				contentStyle={{ padding: 10 }}
 			>
 				Continue
