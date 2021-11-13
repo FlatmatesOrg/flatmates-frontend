@@ -23,6 +23,7 @@ export default function NameAgeScreen({ navigation }) {
 	const [displayPicture, setDisplayPicture] = useState(
 		userDetails.displayPicture
 	);
+	const [interests, setInterests] = useState([]);
 	const [age, setAge] = useState(userDetails.age);
 	const [nameAge, setNameAge] = useState(true);
 	const [dp, setDp] = useState(false);
@@ -34,15 +35,15 @@ export default function NameAgeScreen({ navigation }) {
 	};
 	const pickAvatarHandler = () => {
 		setDp(false);
-		setOnLocation(true);
+		setOnInterests(true);
 	};
 	const goBackHandler = () => {
 		if (dp) {
 			setDp(false);
 			setNameAge(true);
-		} else if (onLocation) {
+		} else if (onInterests) {
 			setDp(true);
-			setOnLocation(false);
+			setOnInterests(false);
 		}
 	};
 
@@ -53,7 +54,7 @@ export default function NameAgeScreen({ navigation }) {
 			blurRadius={5}
 		>
 			<LinearGradient
-				colors={["rgba(0,0,0,0.3)", "#000"]}
+				colors={["rgba(0,0,0,0.8)", "rgba(0,0,0,0.8)"]}
 				start={{ x: 0, y: 0 }}
 				end={{ x: 0.4, y: 0.8 }}
 				style={{
@@ -91,7 +92,9 @@ export default function NameAgeScreen({ navigation }) {
 				/>
 			)}
 			{onLocation && <PickLocation />}
-			{onInterests && <PickInterests />}
+			{onInterests && (
+				<PickInterests interests={interests} setInterests={setInterests} />
+			)}
 		</ImageBackground>
 	);
 }

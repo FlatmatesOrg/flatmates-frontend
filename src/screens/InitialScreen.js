@@ -13,9 +13,9 @@ const InitialScreen = () => {
 			console.log(token);
 			if (token) {
 				try {
-					// await dispatch(authActions.autoLogIn(token));
-					dispatch(authActions.setDidTryAutoLogin());
+					await dispatch(authActions.autoLogin(token));
 				} catch (error) {
+					console.log(error);
 					dispatch(authActions.setDidTryAutoLogin());
 				}
 			} else {

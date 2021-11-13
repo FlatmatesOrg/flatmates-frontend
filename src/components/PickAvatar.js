@@ -62,11 +62,11 @@ export default function PickAvatar({
 			{/* <Avatar.Text style={{ alignSelf: "center" }} size={54} label="XD" /> */}
 			<View style={styles.avatarContainer}>
 				{getAllAvatars()}
-				<Animated.View style={{ transform: [{ translateX: avatarAnim }] }}>
+				{/* <Animated.View style={{ transform: [{ translateX: avatarAnim }] }}>
 					<TouchableOpacity>
 						<Avatar.Icon style={styles.avatar} size={64} icon="camera" />
 					</TouchableOpacity>
-				</Animated.View>
+				</Animated.View> */}
 			</View>
 
 			<View style={{ height: "10%" }} />
@@ -127,27 +127,27 @@ const styles = StyleSheet.create({
 
 const ava = [
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_8.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_32.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_32.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_29.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_37.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_37.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_8.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_47.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_47.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_49.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_49.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_56.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_56.png",
 	},
 	{
-		src: require("../../assets/images/ToyFaces_Tansparent_BG_59.png"),
+		src: "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_59.png",
 	},
 ];

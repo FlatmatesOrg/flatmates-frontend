@@ -7,7 +7,12 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { Avatar } from "react-native-paper";
-export default function AnimatedAvatar({ index, a }) {
+export default function AnimatedAvatar({
+	index,
+	a,
+	displayPicture,
+	setDisplayPicture,
+}) {
 	const avatarAnim = useRef(new Animated.Value(1000)).current;
 	useEffect(() => {
 		Animated.timing(avatarAnim, {
@@ -20,11 +25,23 @@ export default function AnimatedAvatar({ index, a }) {
 
 	return (
 		<Animated.View
-			key={index}
-			style={{ transform: [{ translateX: avatarAnim }] }}
+			style={{
+				transform: [{ translateX: avatarAnim }],
+			}}
 		>
-			<TouchableOpacity>
-				<Avatar.Image style={styles.avatar} size={64} source={a.src} />
+			<TouchableOpacity onPress={() => setDisplayPicture(a.src)}>
+				<Avatar.Image
+					style={[
+						{
+							backgroundColor: "#fff",
+							opacity: displayPicture === a.src ? 1 : 0.3,
+						},
+
+						styles.avatar,
+					]}
+					size={64}
+					source={{ uri: a.src }}
+				/>
 			</TouchableOpacity>
 		</Animated.View>
 	);
@@ -33,6 +50,5 @@ export default function AnimatedAvatar({ index, a }) {
 const styles = StyleSheet.create({
 	avatar: {
 		margin: 10,
-		backgroundColor: "#fff",
 	},
 });

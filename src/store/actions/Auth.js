@@ -9,6 +9,26 @@ export const setDidTryAutoLogin = () => {
 	};
 };
 
+export const autoLogin = (token) => {
+	return async (dispatch) => {
+		try {
+			const response = await axios.get("/auth/autoLogin", {
+				headers: {
+					Auth: `Bearer ${token}`,
+				},
+			});
+			console.log(response.data);
+			dispatch({
+				type: AUTHENTICATE_USER,
+				payload: { ...response.data },
+			});
+		} catch (error) {
+			console.log(error);
+			throw new Error("Something went wrong");
+		}
+	};
+};
+
 export const signUp = (phoneNumber) => {
 	return async (dispatch) => {
 		try {
