@@ -1,46 +1,35 @@
 [
 	{
-		"name": "Mumbai",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Mumbai"
 	},
 	{
-		"name": "Delhi-NCR",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Delhi"
 	},
 	{
-		"name": "Bengaluru",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Bengaluru"
 	},
 	{
-		"name": "Hyderabad",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Hyderabad"
 	},
 	{
-		"name": "Ahmedabad",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Ahmedabad"
 	},
 	{
-		"name": "Chandigarh",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Chandigarh"
 	},
 	{
-		"name": "Chennai",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Chennai"
 	},
 	{
-		"name": "Pune",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Pune"
 	},
 	{
-		"name": "Kolkata",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Kolkata"
 	},
 	{
-		"name": "Kochi",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Kochi"
 	},
 	{
-		"name": "Lucknow",
-		"url": "https://assets147.s3.us-east-2.amazonaws.com/ToyFaces_Tansparent_BG_29.png"
+		"name": "Lucknow"
 	}
 ]

@@ -18,7 +18,9 @@ const City = ({ name, url, city, setCity }) => {
 				<Image
 					resizeMode="contain"
 					style={{ width: "100%", height: 40 }}
-					source={{ uri: url }}
+					source={{
+						uri: `https://assets147.s3.us-east-2.amazonaws.com/${name}.png`,
+					}}
 				/>
 				<Text style={styles.text}>{name}</Text>
 			</TouchableOpacity>
@@ -28,9 +30,15 @@ const City = ({ name, url, city, setCity }) => {
 
 export default function Cities({ city, setCity }) {
 	const getAllCities = () => {
-		return CityData.map((xcity) => {
+		return CityData.map((xcity, i) => {
 			return (
-				<City setCity={setCity} city={city} name={xcity.name} url={xcity.url} />
+				<City
+					key={i}
+					setCity={setCity}
+					city={city}
+					name={xcity.name}
+					url={xcity.url}
+				/>
 			);
 		});
 	};

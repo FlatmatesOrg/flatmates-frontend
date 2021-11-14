@@ -16,6 +16,7 @@ axios.defaults.baseURL = "https://7256-106-202-183-216.ngrok.io";
 const fetchFonts = () => {
 	return Font.loadAsync({
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),
+		title: require("./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
 	});
 };
 

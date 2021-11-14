@@ -4,29 +4,45 @@ import {
 	Text,
 	StyleSheet,
 	Platform,
+	View,
 	TouchableOpacity,
 } from "react-native";
 import { Button, Searchbar } from "react-native-paper";
 import { useSelector } from "react-redux";
-import { Feather } from "@expo/vector-icons";
+import { Feather, Entypo } from "@expo/vector-icons";
 import Cities from "../../components/Cities";
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 
-export default function HomeScreen() {
+export default function HomeScreen({ route, navigation }) {
+	const { type } = route.params;
 	const user = useSelector((state) => state.User);
 	const [city, setCity] = useState();
 	return (
 		<SafeAreaView style={styles.container}>
-			<TouchableOpacity style={{ alignSelf: "flex-end", marginRight: "5%" }}>
-				<Feather name="align-right" size={32} color="black" />
-			</TouchableOpacity>
+			<View style={styles.row}>
+				<TouchableOpacity
+					onPress={() => navigation.goBack()}
+					style={{
+						backgroundColor: "rgb(201, 202, 203)",
+						borderRadius: 14,
+						padding: 4,
+					}}
+				>
+					<Entypo name="chevron-small-left" size={24} color="black" />
+				</TouchableOpacity>
+				<TouchableOpacity>
+					<Feather name="align-right" size={32} color="black" />
+				</TouchableOpacity>
+			</View>
 			<Text style={styles.title}>
 				Find {"\n"}your ideal {"\n"}location.
 			</Text>
 			<Cities setCity={setCity} city={city} />
 			<Button
-				onPress={() => {}}
+				onPress={() => {
+					navigation.navigate(type, { city: city });
+				}}
 				dark
 				color={Colors.secondary}
 				style={styles.button}
@@ -55,5 +71,11 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginTop: 50,
 		borderRadius: 10,
+	},
+	row: {
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between",
+		marginHorizontal: "5%",
 	},
 });
