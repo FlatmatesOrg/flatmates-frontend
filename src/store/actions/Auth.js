@@ -14,7 +14,7 @@ export const autoLogin = (token) => {
 		try {
 			const response = await axios.get("/auth/autoLogin", {
 				headers: {
-					Auth: `Bearer ${token}`,
+					Authorization: `Bearer ${token}`,
 				},
 			});
 			console.log(response.data);
@@ -58,7 +58,7 @@ export const signUpVerify = (phoneNumber, otp) => {
 			}
 			dispatch({
 				type: AUTHENTICATE_USER,
-				payload: { token: response.data.token },
+				payload: { ...response.data },
 			});
 		} catch (error) {
 			console.log(error);
@@ -95,7 +95,7 @@ export const loginVerify = (phoneNumber, otp) => {
 			}
 			dispatch({
 				type: AUTHENTICATE_USER,
-				payload: { token: response.data.token },
+				payload: { ...response.data },
 			});
 		} catch (error) {
 			console.log(error);

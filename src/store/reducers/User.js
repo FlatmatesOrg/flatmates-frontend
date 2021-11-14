@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AUTHENTICATE_USER } from "../actions/Auth";
+import { UPDATE_PROFILE_DETAILS } from "../actions/User";
 
 const initialState = {
 	_id: "",
 	firstName: "",
 	lastName: "",
+	displayPicture: "",
 	interests: [],
 	locality: "",
 	phoneNumber: "",
-	type: "",
 	age: "",
 };
 
@@ -22,7 +23,7 @@ export default (state = initialState, action) => {
 				interests,
 				locality,
 				phoneNumber,
-				type,
+				displayPicture,
 				age,
 			} = action.payload;
 			return {
@@ -33,7 +34,20 @@ export default (state = initialState, action) => {
 				interests,
 				locality,
 				phoneNumber,
-				type,
+				displayPicture,
+				age,
+			};
+		}
+		case UPDATE_PROFILE_DETAILS: {
+			const { firstName, lastName, displayPicture, interests, locality, age } =
+				action.payload;
+			return {
+				...state,
+				firstName,
+				lastName,
+				interests,
+				locality,
+				displayPicture,
 				age,
 			};
 		}

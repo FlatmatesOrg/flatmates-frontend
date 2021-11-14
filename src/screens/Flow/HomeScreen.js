@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { SafeAreaView, Text } from "react-native";
+import { useSelector } from "react-redux";
 
 export default function HomeScreen() {
+	const user = useSelector((state) => state.User);
+	console.log(user);
 	return (
-		<View>
-			<Text></Text>
-		</View>
+		<SafeAreaView>
+			<Text>Home</Text>
+		</SafeAreaView>
 	);
 }

@@ -7,14 +7,24 @@ const HomeStackNavigator = createStackNavigator();
 
 const FlowNavigator = () => {
 	const profileDetails = useSelector((state) => state.User);
+
+	if (!profileDetails.firstName)
+		return (
+			<HomeStackNavigator.Navigator
+				screenOptions={{ headerShown: false, animationEnabled: false }}
+			>
+				<HomeStackNavigator.Screen
+					name="EditProfile"
+					component={EditProfileScreen}
+				/>
+			</HomeStackNavigator.Navigator>
+		);
+
 	return (
 		<HomeStackNavigator.Navigator
 			screenOptions={{ headerShown: false, animationEnabled: false }}
 		>
-			<HomeStackNavigator.Screen
-				name="EditProfile"
-				component={EditProfileScreen}
-			/>
+			<HomeStackNavigator.Screen name="Home" component={HomeScreen} />
 		</HomeStackNavigator.Navigator>
 	);
 };

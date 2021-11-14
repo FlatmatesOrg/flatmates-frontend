@@ -12,14 +12,25 @@ import {
 import { Searchbar, List, Divider } from "react-native-paper";
 import Colors from "../constants/Colors";
 import useSearchLocation from "../hooks/useSearchLocation";
+import AnimatedLocation from "./AnimatedLocation";
 
-export default function PickLocation() {
+export default function PickLocation({
+	locality,
+	setLocality,
+	pickLocationHandler,
+}) {
 	const [getSearchLocation, items, setItems] = useSearchLocation();
 	const headerAnim = useRef(new Animated.Value(1000)).current;
+	const searchBarAnim = useRef(new Animated.Value(1000)).current;
 	useEffect(() => {
 		Animated.spring(headerAnim, {
 			toValue: 0,
-			delay: 500,
+			delay: 100,
+			useNativeDriver: true,
+		}).start();
+		Animated.spring(searchBarAnim, {
+			toValue: 0,
+			delay: 200,
 			useNativeDriver: true,
 		}).start();
 	});
@@ -30,62 +41,33 @@ export default function PickLocation() {
 			>
 				Your locality
 			</Animated.Text>
-			<Searchbar
-				style={{
-					marginVertical: 25,
-					marginHorizontal: 15,
-					borderRadius: 10,
-					overflow: "hidden",
-				}}
-				placeholder="I am from.."
-				onChangeText={getSearchLocation}
-			/>
+			<Animated.View style={[{ transform: [{ translateX: searchBarAnim }] }]}>
+				<Searchbar
+					inputStyle={{ color: "#fff" }}
+					placeholderTextColor="#fff"
+					iconColor="#fff"
+					style={{
+						marginVertical: 25,
+						marginHorizontal: 15,
+						borderRadius: 10,
+						overflow: "hidden",
+
+						backgroundColor: "rgba(76, 76, 76,0.6)",
+					}}
+					placeholder="I am from.."
+					onChangeText={getSearchLocation}
+				/>
+			</Animated.View>
 			<FlatList
 				data={items}
-				renderItem={({ item }) => {
-					console.log(item);
+				renderItem={({ item, index }) => {
 					return (
-						<TouchableOpacity
-							style={{
-								marginHorizontal: 15,
-								flexDirection: "row",
-								backgroundColor: "#fff",
-								justifyContent: "space-around",
-								padding: 20,
-								borderRadius: 10,
-								marginVertical: 10,
-							}}
-							onPress={async () => {}}
-						>
-							{/* <List.Item
-								title={item.name}
-								description={item.address}
-								style={{ padding: 10, backgroundColor: "#fff", margin: 10 }}
-								titleStyle={{ fontWeight: "bold" }}
-								descriptionStyle={{ fontSize: 12 }}
-								left={(props) => (
-									<List.Icon {...props} icon="map-marker-outline" />
-								)}
-							/> */}
-							<Image
-								source={{ uri: item.icon }}
-								resizeMode="contain"
-								style={{ height: "100%", width: 30 }}
-							/>
-							<View style={{ width: "80%" }}>
-								<Text style={{ fontWeight: "800", fontSize: 18 }}>
-									{item.name}
-								</Text>
-								<Text
-									numberOfLines={1}
-									ellipsizeMode="tail"
-									style={{ fontWeight: "400", fontSize: 14 }}
-								>
-									{item.address}
-								</Text>
-							</View>
-							<Divider />
-						</TouchableOpacity>
+						<AnimatedLocation
+							index={index}
+							item={item}
+							setLocality={setLocality}
+							pickLocationHandler={pickLocationHandler}
+						/>
 					);
 				}}
 			/>

@@ -6,11 +6,11 @@ import {
 	Platform,
 	StyleSheet,
 	FlatList,
+	useWindowDimensions,
+	TouchableOpacity,
 } from "react-native";
 import Colors from "../constants/Colors";
 import AnimatedChip from "./AnimatedInterest";
-import { Button } from "react-native-paper";
-
 export default function PickInterests({ interests, setInterests }) {
 	const headerAnim = useRef(new Animated.Value(1000)).current;
 
@@ -24,16 +24,15 @@ export default function PickInterests({ interests, setInterests }) {
 
 	return (
 		<View>
+			<Animated.Text
+				style={[styles.header, { transform: [{ translateX: headerAnim }] }]}
+			>
+				Choose your interests
+			</Animated.Text>
 			<FlatList
-				ListHeaderComponent={
-					<Animated.Text
-						style={[styles.header, { transform: [{ translateX: headerAnim }] }]}
-					>
-						Choose your interests
-					</Animated.Text>
-				}
+				style={{ zIndex: -1 }}
 				data={intr}
-				contentContainerStyle={{ paddingBottom: 100 }}
+				contentContainerStyle={{ paddingBottom: 200 }}
 				keyExtractor={(item, index) => index.toString()}
 				renderItem={({ item, index }) => (
 					<AnimatedChip
@@ -45,18 +44,6 @@ export default function PickInterests({ interests, setInterests }) {
 					/>
 				)}
 			/>
-			{interests.length > 0 && (
-				<View
-					style={{
-						position: "absolute",
-						bottom: 0,
-						zIndex: 10,
-						backgroundColor: "red",
-					}}
-				>
-					<Button>Confirm Interests</Button>
-				</View>
-			)}
 		</View>
 	);
 }
