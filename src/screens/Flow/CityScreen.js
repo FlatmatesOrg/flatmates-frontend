@@ -41,7 +41,7 @@ export default function HomeScreen({ route, navigation }) {
 			<Cities setCity={setCity} city={city} />
 			<Button
 				onPress={() => {
-					navigation.navigate(type, { city: city });
+					navigation.navigate("Location", { city: city });
 				}}
 				dark
 				color={Colors.secondary}

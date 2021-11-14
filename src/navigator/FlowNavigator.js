@@ -6,6 +6,7 @@ import EditProfileScreen from "../screens/Flow/EditProfileScreen";
 import OptionScreen from "../screens/Flow/OptionScreen";
 import ApartmentScreen from "../screens/Flow/ApartmentScreen";
 import RoommateScreen from "../screens/Flow/RoommateScreen";
+import LocationScreen from "../screens/Flow/LocationScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const FlowNavigator = () => {
@@ -28,6 +29,7 @@ const FlowNavigator = () => {
 			<HomeStackNavigator.Screen name="Option" component={OptionScreen} />
 			<HomeStackNavigator.Screen name="City" component={CityScreen} />
 			<HomeStackNavigator.Screen name="Apartment" component={ApartmentScreen} />
+			<HomeStackNavigator.Screen name="Location" component={LocationScreen} />
 			<HomeStackNavigator.Screen name="Roommate" component={RoommateScreen} />
 		</HomeStackNavigator.Navigator>
 	);
