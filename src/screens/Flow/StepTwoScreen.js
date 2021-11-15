@@ -20,7 +20,9 @@ export default function StepTwoScreen({ navigation, route }) {
 	const title = useSelector((state) => state.Request.title);
 	const { data } = route.params;
 	const dispatch = useDispatch();
-	const [description, setDescription] = useState("");
+	const [description, setDescription] = useState(
+		"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+	);
 
 	const onSubmit = () => {
 		dispatch(requestActions.updateStepTwo(description, data));
@@ -35,7 +37,7 @@ export default function StepTwoScreen({ navigation, route }) {
 				>
 					<Entypo name="chevron-small-left" size={24} color="black" />
 				</TouchableOpacity>
-				<Text style={styles.headerTitle}>Step 2 of 3: Add details</Text>
+				<Text style={styles.headerTitle}>Step 2 of 3: Add photos</Text>
 			</View>
 			<Text style={styles.title}>{title}</Text>
 			<TextInput
@@ -44,7 +46,6 @@ export default function StepTwoScreen({ navigation, route }) {
 				value={description}
 				onChangeText={(text) => setDescription(text)}
 				style={styles.input}
-				defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 				underlineColor={Colors.primary}
 				theme={{
 					colors: {

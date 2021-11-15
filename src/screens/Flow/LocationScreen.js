@@ -21,10 +21,10 @@ import { useDispatch } from "react-redux";
 
 export default function LocationScreen({ navigation }) {
 	const [region, setRegion] = useState({
-		latitude: 23.155,
-		longitude: 87.655,
-		latitudeDelta: 0.000922,
-		longitudeDelta: 0.000421,
+		latitude: 37.78825,
+		longitude: -122.4324,
+		latitudeDelta: 0.015,
+		longitudeDelta: 0.0121,
 	});
 	const [addressLoading, setAddressLoading] = useState(false);
 	const [address, setAddress] = useState(null);

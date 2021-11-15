@@ -10,6 +10,7 @@ import LocationScreen from "../screens/Flow/LocationScreen";
 import StepTwoScreen from "../screens/Flow/StepTwoScreen";
 import GetMultipleImagesScreen from "../screens/Flow/GetMultipleImagesScreen";
 import StepThreeScreen from "../screens/Flow/StepThreeScreen";
+import PreviewScreen from "../screens/Flow/PreviewScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const FlowNavigator = () => {
@@ -44,6 +45,7 @@ const FlowNavigator = () => {
 				component={GetMultipleImagesScreen}
 			/>
 			<HomeStackNavigator.Screen name="StepThree" component={StepThreeScreen} />
+			<HomeStackNavigator.Screen name="Preview" component={PreviewScreen} />
 		</HomeStackNavigator.Navigator>
 	);
 };

@@ -1,4 +1,9 @@
-import { ADD_TYPE, UPDATE_STEP_ONE, UPDATE_STEP_TWO } from "../actions/Request";
+import {
+	ADD_TYPE,
+	UPDATE_STEP_ONE,
+	UPDATE_STEP_THREE,
+	UPDATE_STEP_TWO,
+} from "../actions/Request";
 
 const initialState = {
 	type: "",
@@ -20,6 +25,15 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				type: action.payload.type,
+			};
+		}
+		case UPDATE_STEP_THREE: {
+			return {
+				...state,
+				duration: action.payload.duration,
+				noOfTenants: action.payload.noOfTenants,
+				noOfRooms: action.payload.noOfRooms,
+				price: action.payload.price,
 			};
 		}
 		case UPDATE_STEP_TWO: {
