@@ -7,6 +7,8 @@ import {
 	Dimensions,
 	TouchableOpacity,
 	Image,
+	Platform,
+	ToastAndroid,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { Entypo } from "@expo/vector-icons";
@@ -14,6 +16,8 @@ import Colors from "../../constants/Colors";
 import MapAddress from "../../components/MapAddress";
 import useReadLocation from "../../hooks/useReadLocation";
 import RBSheet from "react-native-raw-bottom-sheet";
+import * as requestActions from "../../store/actions/Request";
+import { useDispatch } from "react-redux";
 
 export default function LocationScreen({ navigation }) {
 	const [region, setRegion] = useState({
@@ -26,7 +30,9 @@ export default function LocationScreen({ navigation }) {
 	const [address, setAddress] = useState(null);
 	const [getReadableLocation, errorRead] = useReadLocation();
 	const refRBSheet = useRef();
-
+	const dispatch = useDispatch();
+	const [title, setTitle] = useState("");
+	const [landmark, setLandmark] = useState("");
 	const onRegionChangeComplete = useCallback(async (region) => {
 		setRegion(region);
 		setAddressLoading(true);
@@ -37,6 +43,27 @@ export default function LocationScreen({ navigation }) {
 		setAddressLoading(false);
 		setAddress(formattedAddress);
 	}, []);
+
+	const onSubmit = async () => {
+		if (title && landmark) {
+			dispatch(
+				requestActions.updateStepOne(
+					title,
+					landmark,
+					{ latitude: region.latitude, longitude: region.longitude },
+					address
+				)
+			);
+			refRBSheet.current.close();
+			navigation.navigate("StepTwo");
+		} else {
+			if (Platform.OS === "android") {
+				ToastAndroid.show("Fill in details to continue", ToastAndroid.SHORT);
+			} else {
+				alert("Fill in details to continue");
+			}
+		}
+	};
 
 	return (
 		<View style={styles.container}>
@@ -62,7 +89,11 @@ export default function LocationScreen({ navigation }) {
 				onRegionChangeComplete={onRegionChangeComplete}
 			/>
 
-			<MapAddress refRBSheet={refRBSheet} item={address} />
+			<MapAddress
+				refRBSheet={refRBSheet}
+				item={address}
+				addressLoading={addressLoading}
+			/>
 			<RBSheet
 				ref={refRBSheet}
 				closeOnDragDown={true}
@@ -82,6 +113,8 @@ export default function LocationScreen({ navigation }) {
 				<TextInput
 					style={styles.input}
 					label="Title"
+					value={title}
+					onChangeText={(text) => setTitle(text)}
 					underlineColor={Colors.primary}
 					theme={{
 						colors: {
@@ -97,6 +130,8 @@ export default function LocationScreen({ navigation }) {
 				<TextInput
 					style={styles.input}
 					label="Nearest Landmark"
+					value={landmark}
+					onChangeText={(text) => setLandmark(text)}
 					underlineColor={Colors.primary}
 					theme={{
 						colors: {
@@ -114,6 +149,7 @@ export default function LocationScreen({ navigation }) {
 					style={styles.button}
 					mode="contained"
 					uppercase={false}
+					onPress={onSubmit}
 					contentStyle={{ padding: 10 }}
 				>
 					Continue to Step 2

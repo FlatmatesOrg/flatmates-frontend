@@ -15,7 +15,6 @@ import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 
 export default function HomeScreen({ route, navigation }) {
-	const { type } = route.params;
 	const user = useSelector((state) => state.User);
 	const [city, setCity] = useState();
 	return (
@@ -65,6 +64,7 @@ const styles = StyleSheet.create({
 		color: "#000",
 		marginTop: "10%",
 		marginLeft: "5%",
+		fontFamily: Fonts.title,
 	},
 	button: {
 		width: "80%",

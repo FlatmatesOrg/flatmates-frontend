@@ -12,8 +12,14 @@ import {
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-
+import * as requestActions from "../../store/actions/Request";
+import { useDispatch } from "react-redux";
 export default function OptionScreen({ navigation }) {
+	const dispatch = useDispatch();
+	const onSubmit = (type) => {
+		dispatch(requestActions.addType(type));
+		navigation.navigate("City");
+	};
 	return (
 		<ImageBackground
 			imageStyle={{
@@ -38,13 +44,13 @@ export default function OptionScreen({ navigation }) {
 			<Text style={styles.text}>Get Started</Text>
 			<View style={styles.row}>
 				<TouchableOpacity
-					onPress={() => navigation.navigate("City", { type: "Roommate" })}
+					onPress={() => onSubmit("Roommate")}
 					style={styles.iconContainer}
 				>
 					<AntDesign name="addusergroup" size={24} color="#fff" />
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => navigation.navigate("City", { type: "Apartment" })}
+					onPress={() => onSubmit("Apartment")}
 					style={styles.iconContainer}
 				>
 					<MaterialIcons name="apartment" size={24} color="#fff" />

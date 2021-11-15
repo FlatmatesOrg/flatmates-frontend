@@ -7,6 +7,9 @@ import OptionScreen from "../screens/Flow/OptionScreen";
 import ApartmentScreen from "../screens/Flow/ApartmentScreen";
 import RoommateScreen from "../screens/Flow/RoommateScreen";
 import LocationScreen from "../screens/Flow/LocationScreen";
+import StepTwoScreen from "../screens/Flow/StepTwoScreen";
+import GetMultipleImagesScreen from "../screens/Flow/GetMultipleImagesScreen";
+import StepThreeScreen from "../screens/Flow/StepThreeScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const FlowNavigator = () => {
@@ -31,6 +34,16 @@ const FlowNavigator = () => {
 			<HomeStackNavigator.Screen name="Apartment" component={ApartmentScreen} />
 			<HomeStackNavigator.Screen name="Location" component={LocationScreen} />
 			<HomeStackNavigator.Screen name="Roommate" component={RoommateScreen} />
+			<HomeStackNavigator.Screen
+				name="StepTwo"
+				initialParams={{ data: [] }}
+				component={StepTwoScreen}
+			/>
+			<HomeStackNavigator.Screen
+				name="Images"
+				component={GetMultipleImagesScreen}
+			/>
+			<HomeStackNavigator.Screen name="StepThree" component={StepThreeScreen} />
 		</HomeStackNavigator.Navigator>
 	);
 };
