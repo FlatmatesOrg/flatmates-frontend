@@ -13,7 +13,7 @@ export const updateUser = (
 	return async (dispatch) => {
 		try {
 			const response = await axios.post(
-				"/auth/setUserProfile",
+				"/user/setUserProfile",
 				{
 					firstName,
 					lastName,

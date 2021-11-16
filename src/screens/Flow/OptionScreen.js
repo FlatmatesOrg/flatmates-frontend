@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	View,
 	Text,
@@ -14,12 +14,14 @@ import Fonts from "../../constants/Fonts";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import * as requestActions from "../../store/actions/Request";
 import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function OptionScreen({ navigation }) {
 	const dispatch = useDispatch();
 	const onSubmit = (type) => {
 		dispatch(requestActions.addType(type));
 		navigation.navigate("City");
 	};
+
 	return (
 		<ImageBackground
 			imageStyle={{

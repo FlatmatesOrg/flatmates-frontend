@@ -3,6 +3,7 @@ import {
 	View,
 	Text,
 	SafeAreaView,
+	ImageBackground,
 	Platform,
 	StyleSheet,
 	TouchableOpacity,
@@ -44,7 +45,10 @@ export default function SignUpScreen({ navigation }) {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<ImageBackground
+			style={styles.container}
+			source={require("../../../assets/images/TwoWomenRear.png")}
+		>
 			<TouchableOpacity onPress={() => navigation.navigate("GetStarted")}>
 				<Entypo name="chevron-left" size={32} color={Colors.primary} />
 			</TouchableOpacity>
@@ -87,12 +91,7 @@ export default function SignUpScreen({ navigation }) {
 			>
 				Continue
 			</Button>
-			<Image
-				resizeMode="cover"
-				style={styles.image}
-				source={require("../../../assets/images/TwoWomenRear.png")}
-			/>
-		</SafeAreaView>
+		</ImageBackground>
 	);
 }
 
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fefcfd",
-		paddingTop: Platform.OS === "android" ? 25 : 0,
+		paddingTop: 45,
 	},
 	button: {
 		width: "80%",

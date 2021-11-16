@@ -42,7 +42,7 @@ export default function StepThreeScreen({ navigation }) {
 			setOnPrice(true);
 		} else {
 			dispatch(requestActions.updateStepThree(tenants, rooms, price, duration));
-			navigation.navigate("PreviewScreen");
+			navigation.navigate("Preview");
 		}
 	};
 

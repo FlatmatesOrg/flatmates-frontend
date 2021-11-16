@@ -1,5 +1,6 @@
 import {
 	ADD_TYPE,
+	SEND_REQUEST,
 	UPDATE_STEP_ONE,
 	UPDATE_STEP_THREE,
 	UPDATE_STEP_TWO,
@@ -51,6 +52,9 @@ export default (state = initialState, action) => {
 				coordinates: action.payload.coords,
 				address: action.payload.address,
 			};
+		}
+		case SEND_REQUEST: {
+			return initialState;
 		}
 		default: {
 			return state;

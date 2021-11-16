@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	Image,
 	ToastAndroid,
+	ImageBackground,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
@@ -44,7 +45,10 @@ export default function LoginScreen({ navigation }) {
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<ImageBackground
+			style={styles.container}
+			source={require("../../../assets/images/TwoWomenRear.png")}
+		>
 			<TouchableOpacity onPress={() => navigation.navigate("GetStarted")}>
 				<Entypo name="chevron-left" size={32} color={Colors.primary} />
 			</TouchableOpacity>
@@ -87,13 +91,7 @@ export default function LoginScreen({ navigation }) {
 			>
 				Continue
 			</Button>
-
-			<Image
-				resizeMode="cover"
-				style={styles.image}
-				source={require("../../../assets/images/TwoWomenRear.png")}
-			/>
-		</SafeAreaView>
+		</ImageBackground>
 	);
 }
 
@@ -101,7 +99,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fefcfd",
-		paddingTop: Platform.OS === "android" ? 25 : 0,
+		paddingTop: 45,
 	},
 	button: {
 		width: "80%",
@@ -112,7 +110,6 @@ const styles = StyleSheet.create({
 	image: {
 		width: "100%",
 		height: 300,
-		position: "absolute",
 		bottom: 0,
 	},
 	nextButton: {

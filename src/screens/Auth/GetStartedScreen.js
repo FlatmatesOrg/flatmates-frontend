@@ -1,12 +1,22 @@
 import React from "react";
-import { Image, Text, SafeAreaView, Platform, StyleSheet } from "react-native";
+import {
+	Image,
+	Text,
+	SafeAreaView,
+	Platform,
+	StyleSheet,
+	ImageBackground,
+} from "react-native";
 import Fonts from "../../constants/Fonts";
 import { Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 
 export default function MainScreen({ navigation }) {
 	return (
-		<SafeAreaView style={styles.container}>
+		<ImageBackground
+			style={styles.container}
+			source={require("../../../assets/images/TwoWomenRear.png")}
+		>
 			<Text style={styles.logo}>Flatmates</Text>
 			<Text style={styles.subtitle}>Find your places</Text>
 			<Button
@@ -29,12 +39,7 @@ export default function MainScreen({ navigation }) {
 			>
 				Create an account
 			</Button>
-			<Image
-				resizeMode="cover"
-				style={styles.image}
-				source={require("../../../assets/images/TwoWomenRear.png")}
-			/>
-		</SafeAreaView>
+		</ImageBackground>
 	);
 }
 
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fefcfd",
-		paddingTop: Platform.OS === "android" ? 25 : 0,
+		paddingTop: 45,
 	},
 	image: {
 		width: "100%",

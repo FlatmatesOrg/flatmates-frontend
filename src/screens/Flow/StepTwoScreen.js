@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	Platform,
 	Image,
+	ToastAndroid,
 } from "react-native";
 import { Entypo, AntDesign, Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,8 +26,16 @@ export default function StepTwoScreen({ navigation, route }) {
 	);
 
 	const onSubmit = () => {
-		dispatch(requestActions.updateStepTwo(description, data));
-		navigation.navigate("StepThree");
+		if (!description || data.length < 4) {
+			if (Platform.OS === "android") {
+				ToastAndroid.show("Fill in details to continue", ToastAndroid.SHORT);
+			} else {
+				alert("Fill in details to continue");
+			}
+		} else {
+			dispatch(requestActions.updateStepTwo(description, data));
+			navigation.navigate("StepThree");
+		}
 	};
 	return (
 		<SafeAreaView style={styles.container}>
@@ -85,6 +94,7 @@ export default function StepTwoScreen({ navigation, route }) {
 					if (index > 2) return null;
 					return (
 						<View
+							key={index}
 							style={[
 								styles.imageContainer,
 								{
