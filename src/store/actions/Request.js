@@ -54,7 +54,7 @@ export const sendRequest = (
 ) => {
 	return async (dispatch) => {
 		const response = await axios.post(
-			"/user/sendRequest",
+			"/property/addProperty",
 			{
 				title,
 				landmark,
