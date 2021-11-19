@@ -13,7 +13,7 @@ import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://7534-180-94-32-225.ngrok.io";
+axios.defaults.baseURL = "https://16f2-27-58-194-11.ngrok.io";
 const fetchFonts = () => {
 	return Font.loadAsync({
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),

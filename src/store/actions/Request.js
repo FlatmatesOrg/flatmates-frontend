@@ -50,7 +50,8 @@ export const sendRequest = (
 	noOfTenants,
 	noOfRooms,
 	price,
-	gallery
+	gallery,
+	token
 ) => {
 	return async (dispatch) => {
 		const response = await axios.post(
@@ -70,8 +71,6 @@ export const sendRequest = (
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
-					"Content-Type": "multipart/form-data",
-					"Content-Type": "application/json",
 				},
 			}
 		);

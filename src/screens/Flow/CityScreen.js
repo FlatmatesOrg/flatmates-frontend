@@ -16,6 +16,7 @@ import Fonts from "../../constants/Fonts";
 
 export default function HomeScreen({ route, navigation }) {
 	const user = useSelector((state) => state.User);
+	const type = useSelector((state) => state.Request.type);
 	const [city, setCity] = useState();
 	return (
 		<SafeAreaView style={styles.container}>
@@ -40,7 +41,13 @@ export default function HomeScreen({ route, navigation }) {
 			<Cities setCity={setCity} city={city} />
 			<Button
 				onPress={() => {
-					navigation.navigate("Location", { city: city });
+					if (type === "Apartment") {
+						navigation.navigate("Filter", {
+							city: city,
+						});
+					} else {
+						navigation.navigate("Location", { city: city });
+					}
 				}}
 				dark
 				color={Colors.secondary}

@@ -25,8 +25,15 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 export default function PreviewScreen({ navigation }) {
 	const request = useSelector((state) => state.Request);
+	console.log({ request });
+	const token = useSelector((state) => state.Auth.token);
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(false);
+
+	const goBackHandler = () => {
+		navigation.goBack();
+	};
+
 	const onSubmit = async () => {
 		let images = [];
 		request.gallery.map((image) => {
@@ -38,6 +45,7 @@ export default function PreviewScreen({ navigation }) {
 			});
 			images.push(body);
 		});
+		console.log({ images });
 		try {
 			setIsLoading(true);
 			const response = await dispatch(
@@ -51,7 +59,8 @@ export default function PreviewScreen({ navigation }) {
 					request.noOfTenants,
 					request.noOfRooms,
 					request.price,
-					images
+					images,
+					token
 				)
 			);
 			if (response && response.message) {
