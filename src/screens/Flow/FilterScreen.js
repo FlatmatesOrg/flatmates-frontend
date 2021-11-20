@@ -7,8 +7,9 @@ import {
 	Platform,
 	SafeAreaView,
 	FlatList,
+	ToastAndroid,
 } from "react-native";
-import { Searchbar, Chip } from "react-native-paper";
+import { Searchbar, Chip, Button } from "react-native-paper";
 import { Entypo } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import InputSpinner from "react-native-input-spinner";
@@ -19,14 +20,16 @@ import RailSelected from "../../components/RangeSlider/RailSelected";
 import Label from "../../components/RangeSlider/Label";
 import Notch from "../../components/RangeSlider/Notch";
 import Fonts from "../../constants/Fonts";
-import AnimatedLocation from "../../components/AnimatedLocation";
-import useSearchLocation from "../../hooks/useSearchLocation";
+import { useDispatch } from "react-redux";
+import * as apartmentActions from "../../store/actions/Apartment";
+import LoadingScreen from "../LoadingScreen";
 export default function FilterScreen({ navigation, route }) {
-	const [getSearchLocation, items, setItems] = useSearchLocation();
 	const [locality, setLocality] = useState([]);
-	const [area, setArea] = useState("");
 	const [noOfRooms, setNoOfRooms] = useState(1);
 	const [noOfTenants, setNoOfTenants] = useState(1);
+	const [duration, setDuration] = useState(1);
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
 	const [low, setLow] = useState(0);
 	const [high, setHigh] = useState(0);
 	const renderThumb = useCallback(() => <Thumb />, []);
@@ -44,6 +47,32 @@ export default function FilterScreen({ navigation, route }) {
 			setLocality((x) => x.concat(route.params.local));
 		}
 	}, [route.params]);
+
+	const getApartmentsHandler = async () => {
+		try {
+			setIsLoading(true);
+			const response = await dispatch(
+				apartmentActions.getApartmentsUsingFilters(
+					locality,
+					{ low, high },
+					noOfTenants,
+					noOfRooms,
+					duration
+				)
+			);
+			setIsLoading(false);
+			if (response && response.message) {
+				if (Platform.OS === "android") {
+					ToastAndroid.show(response.message, ToastAndroid.SHORT);
+				} else {
+					alert(response.message);
+				}
+			}
+		} catch (error) {
+			setIsLoading(false);
+			alert("Something went wrong");
+		}
+	};
 
 	const getAllChips = () => {
 		return locality.map((item, index) => {
@@ -63,6 +92,10 @@ export default function FilterScreen({ navigation, route }) {
 			);
 		});
 	};
+
+	if (isLoading) {
+		return <LoadingScreen />;
+	}
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -180,9 +213,9 @@ export default function FilterScreen({ navigation, route }) {
 					step={1}
 					type="float"
 					showBorder={false}
-					value={noOfTenants}
+					value={duration}
 					onChange={(num) => {
-						setNoOfTenants(num);
+						setDuration(num);
 					}}
 					style={{
 						alignItems: "center",
@@ -203,6 +236,18 @@ export default function FilterScreen({ navigation, route }) {
 					}}
 				/>
 			</View>
+			<Button
+				onPress={() => {
+					getApartmentsHandler();
+				}}
+				dark
+				color={Colors.secondary}
+				style={styles.button}
+				mode="contained"
+				contentStyle={{ padding: 10 }}
+			>
+				Continue
+			</Button>
 		</SafeAreaView>
 	);
 }
@@ -244,5 +289,11 @@ const styles = StyleSheet.create({
 	},
 	slider: {
 		marginHorizontal: 40,
+	},
+	button: {
+		width: "80%",
+		alignSelf: "center",
+		marginTop: 50,
+		borderRadius: 10,
 	},
 });

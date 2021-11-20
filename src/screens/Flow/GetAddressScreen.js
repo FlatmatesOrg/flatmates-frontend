@@ -43,6 +43,7 @@ export default function GetAddressScreen({ navigation }) {
 						<AnimatedLocation
 							index={index}
 							item={item}
+							titleOnly={true}
 							setLocality={setLocality}
 							pickLocationHandler={pickLocationHandler}
 						/>
@@ -56,7 +57,7 @@ export default function GetAddressScreen({ navigation }) {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#fff",
+		backgroundColor: "#e4e4e4",
 		paddingTop: Platform.OS === "android" ? 50 : 0,
 	},
 	backButtonStyle: {

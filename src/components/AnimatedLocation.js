@@ -6,6 +6,7 @@ export default function AnimatedLocation({
 	setLocality,
 	pickLocationHandler,
 	index,
+	titleOnly,
 }) {
 	const anim = useRef(new Animated.Value(-50)).current;
 	useEffect(() => {
@@ -26,7 +27,7 @@ export default function AnimatedLocation({
 				style={{
 					marginHorizontal: 15,
 					flexDirection: "row",
-					backgroundColor: "rgba(76, 76, 76,0.6)",
+					backgroundColor: titleOnly ? "#fff" : "rgba(76, 76, 76,0.6)",
 					justifyContent: "space-around",
 					padding: 20,
 					borderRadius: 10,
@@ -39,13 +40,23 @@ export default function AnimatedLocation({
 					style={{ height: "100%", width: 24 }}
 				/>
 				<View style={{ width: "80%" }}>
-					<Text style={{ color: "#fff", fontWeight: "500", fontSize: 18 }}>
+					<Text
+						style={{
+							color: titleOnly ? "#000" : "#fff",
+							fontWeight: "500",
+							fontSize: 18,
+						}}
+					>
 						{item.name}
 					</Text>
 					<Text
 						numberOfLines={1}
 						ellipsizeMode="tail"
-						style={{ color: "#fff", fontWeight: "400", fontSize: 14 }}
+						style={{
+							color: titleOnly ? "#000" : "#fff",
+							fontWeight: "400",
+							fontSize: 14,
+						}}
 					>
 						{item.address}
 					</Text>

@@ -7,13 +7,14 @@ import ReduxThunk from "redux-thunk";
 import AuthReducer from "./src/store/reducers/Auth";
 import UserReducer from "./src/store/reducers/User";
 import RequestReducer from "./src/store/reducers/Request";
+import ApartmentReducer from "./src/store/reducers/Apartment";
 import { name as appName } from "./app.json";
 import AppNavigator from "./src/navigator/AppNavigator";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://16f2-27-58-194-11.ngrok.io";
+axios.defaults.baseURL = "https://6c40-27-58-194-11.ngrok.io";
 const fetchFonts = () => {
 	return Font.loadAsync({
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	Auth: AuthReducer,
 	User: UserReducer,
 	Request: RequestReducer,
+	Apartment: ApartmentReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
