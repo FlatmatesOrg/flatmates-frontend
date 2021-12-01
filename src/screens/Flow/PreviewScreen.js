@@ -25,7 +25,6 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 export default function PreviewScreen({ navigation }) {
 	const request = useSelector((state) => state.Request);
-	console.log({ request });
 	const token = useSelector((state) => state.Auth.token);
 	const dispatch = useDispatch();
 	const [isLoading, setIsLoading] = useState(false);
@@ -35,19 +34,9 @@ export default function PreviewScreen({ navigation }) {
 	};
 
 	const onSubmit = async () => {
-		let images = [];
-		request.gallery.map((image) => {
-			const body = new FormData();
-			body.append("image", {
-				uri: image.uri,
-				type: "image/jpg",
-				name: "profilePic.jpg",
-			});
-			images.push(body);
-		});
-		console.log({ images });
 		try {
 			setIsLoading(true);
+			console.log(request.coordinates);
 			const response = await dispatch(
 				requestActions.sendRequest(
 					request.title,
@@ -59,7 +48,7 @@ export default function PreviewScreen({ navigation }) {
 					request.noOfTenants,
 					request.noOfRooms,
 					request.price,
-					images,
+					request.gallery,
 					token
 				)
 			);
@@ -69,10 +58,11 @@ export default function PreviewScreen({ navigation }) {
 				} else {
 					alert(response.message);
 				}
-				setIsLoading(false);
-			} else {
-				navigation.navigate("Option");
 			}
+			setIsLoading(false);
+			// } else {
+			// 	navigation.navigate("Option");
+			// }
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);

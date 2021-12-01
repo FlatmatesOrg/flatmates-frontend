@@ -24,7 +24,7 @@ export default function StepThreeScreen({ navigation }) {
 	const [onRooms, setOnRooms] = useState(false);
 	const [onPrice, setOnPrice] = useState(false);
 	const [price, setPrice] = useState(0);
-	const [duration, setDuration] = useState(1);
+	const [duration, setDuration] = useState(3);
 	const [tenants, setTenants] = useState(1);
 	const [rooms, setRooms] = useState(1);
 	const dispatch = useDispatch();

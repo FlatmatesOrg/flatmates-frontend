@@ -6,6 +6,7 @@ import {
 	Platform,
 	View,
 	TouchableOpacity,
+	ToastAndroid,
 } from "react-native";
 import { Button, Searchbar } from "react-native-paper";
 import { useSelector } from "react-redux";
@@ -41,6 +42,14 @@ export default function HomeScreen({ route, navigation }) {
 			<Cities setCity={setCity} city={city} />
 			<Button
 				onPress={() => {
+					if (!city) {
+						if (Platform.OS === "android") {
+							ToastAndroid.show("Select a city", ToastAndroid.SHORT);
+						} else {
+							alert("Select a city");
+						}
+						return;
+					}
 					if (type === "Apartment") {
 						navigation.navigate("Filter", {
 							city: city,

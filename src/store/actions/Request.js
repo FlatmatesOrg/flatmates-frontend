@@ -4,6 +4,7 @@ export const UPDATE_STEP_THREE = "UPDATE_STEP_THREE";
 export const UPDATE_STEP_TWO = "UPDATE_STEP_TWO";
 export const SEND_REQUEST = "SEND_REQUEST";
 import axios from "axios";
+import mime from "mime";
 export const updateStepOne = (title, landmark, coords, address) => {
 	return async (dispatch) => {
 		dispatch({
@@ -53,32 +54,51 @@ export const sendRequest = (
 	gallery,
 	token
 ) => {
+	console.log("Sending request");
+	console.log({ title });
+	console.log({
+		title,
+		landmark,
+		coordinates,
+		address,
+		description,
+		duration,
+		noOfTenants,
+		noOfRooms,
+		price,
+		gallery,
+		token,
+	});
 	return async (dispatch) => {
-		const response = await axios.post(
-			"/property/addProperty",
-			{
-				title,
-				landmark,
-				coordinates,
-				address,
-				description,
-				duration,
-				noOfTenants,
-				noOfRooms,
-				price,
-				gallery,
+		const data = new FormData();
+		data.append("title", title);
+		data.append("landmark", landmark);
+		data.append("coordinates", JSON.stringify(coordinates));
+		data.append("address", address);
+		data.append("description", description);
+		data.append("duration", duration);
+		data.append("noOfTenants", noOfTenants);
+		data.append("noOfRooms", noOfRooms);
+		data.append("price", price);
+		gallery.forEach((pic) => {
+			data.append("gallery", {
+				fileName: pic.filename,
+				uri: pic.uri,
+				type: mime.getType(pic.uri),
+			});
+		});
+		console.log(data);
+		const response = await axios.post("/property/addProperty", data, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "multipart/form-data",
 			},
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
+		});
 		if (!response.data.success) {
 			return { message: response.data.message };
 		}
-		dispatch({
-			type: SEND_REQUEST,
-		});
+		// dispatch({
+		// 	type: SEND_REQUEST,
+		// });
 	};
 };
