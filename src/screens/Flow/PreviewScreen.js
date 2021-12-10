@@ -19,7 +19,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Fonts from "../../constants/Fonts";
 import Colors from "../../constants/Colors";
 import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
-import * as FileSystem from "expo-file-system";
 import * as requestActions from "../../store/actions/Request";
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
@@ -33,10 +32,11 @@ export default function PreviewScreen({ navigation }) {
 		navigation.goBack();
 	};
 
+	console.log(request.gallery);
+
 	const onSubmit = async () => {
 		try {
 			setIsLoading(true);
-			console.log(request.coordinates);
 			const response = await dispatch(
 				requestActions.sendRequest(
 					request.title,
@@ -53,16 +53,15 @@ export default function PreviewScreen({ navigation }) {
 				)
 			);
 			if (response && response.message) {
+				setIsLoading(false);
 				if (Platform.OS === "android") {
 					ToastAndroid.show(response.message, ToastAndroid.SHORT);
 				} else {
 					alert(response.message);
 				}
+			} else {
+				navigation.navigate("Option");
 			}
-			setIsLoading(false);
-			// } else {
-			// 	navigation.navigate("Option");
-			// }
 		} catch (error) {
 			setIsLoading(false);
 			console.log(error);
@@ -127,6 +126,7 @@ export default function PreviewScreen({ navigation }) {
 			<FlatList
 				style={{ marginLeft: 10 }}
 				data={request.gallery}
+				keyExtractor={(item) => item.uri}
 				showsHorizontalScrollIndicator={false}
 				horizontal
 				renderItem={({ item, index }) => (

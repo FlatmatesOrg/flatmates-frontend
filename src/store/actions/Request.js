@@ -82,7 +82,7 @@ export const sendRequest = (
 		data.append("price", price);
 		gallery.forEach((pic) => {
 			data.append("gallery", {
-				fileName: pic.filename,
+				name: "demo.jpg",
 				uri: pic.uri,
 				type: mime.getType(pic.uri),
 			});
@@ -94,11 +94,12 @@ export const sendRequest = (
 				"Content-Type": "multipart/form-data",
 			},
 		});
+		console.log(response.data);
 		if (!response.data.success) {
 			return { message: response.data.message };
 		}
-		// dispatch({
-		// 	type: SEND_REQUEST,
-		// });
+		dispatch({
+			type: SEND_REQUEST,
+		});
 	};
 };

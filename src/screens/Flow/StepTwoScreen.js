@@ -16,7 +16,7 @@ import { Button } from "react-native-paper";
 import { TextInput } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import * as requestActions from "../../store/actions/Request";
-
+import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 export default function StepTwoScreen({ navigation, route }) {
 	const title = useSelector((state) => state.Request.title);
 	const { data } = route.params;
@@ -25,7 +25,7 @@ export default function StepTwoScreen({ navigation, route }) {
 		"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
 	);
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		if (!description || data.length < 4) {
 			if (Platform.OS === "android") {
 				ToastAndroid.show("Fill in details to continue", ToastAndroid.SHORT);
@@ -33,7 +33,21 @@ export default function StepTwoScreen({ navigation, route }) {
 				alert("Fill in details to continue");
 			}
 		} else {
-			dispatch(requestActions.updateStepTwo(description, data));
+			let manipulatedImages = [];
+			await data.map(async (d) => {
+				const manipResult = await manipulateAsync(
+					d.uri,
+					[{ resize: { width: 2500 } }],
+					{
+						compress: 0.7,
+						format: SaveFormat.JPEG,
+					}
+				);
+				console.log({ manipResult });
+				manipulatedImages.push({ ...manipResult });
+			});
+
+			dispatch(requestActions.updateStepTwo(description, manipulatedImages));
 			navigation.navigate("StepThree");
 		}
 	};
