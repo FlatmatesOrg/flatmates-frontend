@@ -23,12 +23,14 @@ import Fonts from "../../constants/Fonts";
 import { useDispatch } from "react-redux";
 import * as apartmentActions from "../../store/actions/Apartment";
 import LoadingScreen from "../LoadingScreen";
+import { useSelector } from "react-redux";
 export default function FilterScreen({ navigation, route }) {
 	const [locality, setLocality] = useState([]);
 	const [noOfRooms, setNoOfRooms] = useState(1);
 	const [noOfTenants, setNoOfTenants] = useState(1);
 	const [duration, setDuration] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
+	const token = useSelector((state) => state.Auth.token);
 	const dispatch = useDispatch();
 	const [low, setLow] = useState(0);
 	const [high, setHigh] = useState(0);
@@ -43,7 +45,7 @@ export default function FilterScreen({ navigation, route }) {
 	}, []);
 
 	useEffect(() => {
-		if (route.params.local) {
+		if (route.params?.local) {
 			setLocality((x) => x.concat(route.params.local));
 		}
 	}, [route.params]);
@@ -57,7 +59,8 @@ export default function FilterScreen({ navigation, route }) {
 					{ low, high },
 					noOfTenants,
 					noOfRooms,
-					duration
+					duration,
+					token
 				)
 			);
 			setIsLoading(false);
@@ -67,6 +70,8 @@ export default function FilterScreen({ navigation, route }) {
 				} else {
 					alert(response.message);
 				}
+			} else {
+				navigation.navigate("Apartment");
 			}
 		} catch (error) {
 			setIsLoading(false);

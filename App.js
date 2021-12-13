@@ -15,6 +15,7 @@ import * as Font from "expo-font";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://flatmatesbackend.herokuapp.com";
+// axios.defaults.baseURL = "https://2245-203-115-66-151.ngrok.io";
 const fetchFonts = () => {
 	return Font.loadAsync({
 		logo: require("./assets/fonts/DrSugiyama-Regular.ttf"),
