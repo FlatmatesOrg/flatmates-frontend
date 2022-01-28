@@ -4,7 +4,7 @@ import CityScreen from "../screens/Flow/CityScreen";
 import { useSelector } from "react-redux";
 import EditProfileScreen from "../screens/Flow/EditProfileScreen";
 import OptionScreen from "../screens/Flow/OptionScreen";
-import ApartmentScreen from "../screens/Flow/ApartmentScreen";
+import ApartmentListScreen from "../screens/Flow/ApartmentListScreen";
 import RoommateScreen from "../screens/Flow/RoommateScreen";
 import LocationScreen from "../screens/Flow/LocationScreen";
 import StepTwoScreen from "../screens/Flow/StepTwoScreen";
@@ -13,6 +13,7 @@ import StepThreeScreen from "../screens/Flow/StepThreeScreen";
 import PreviewScreen from "../screens/Flow/PreviewScreen";
 import FilterScreen from "../screens/Flow/FilterScreen";
 import GetAddressScreen from "../screens/Flow/GetAddressScreen";
+import ApartmentScreen from "../screens/Flow/ApartmentScreen";
 const HomeStackNavigator = createStackNavigator();
 
 const FlowNavigator = () => {
@@ -34,6 +35,10 @@ const FlowNavigator = () => {
 		<HomeStackNavigator.Navigator screenOptions={{ headerShown: false }}>
 			<HomeStackNavigator.Screen name="Option" component={OptionScreen} />
 			<HomeStackNavigator.Screen name="City" component={CityScreen} />
+			<HomeStackNavigator.Screen
+				name="ApartmentList"
+				component={ApartmentListScreen}
+			/>
 			<HomeStackNavigator.Screen name="Apartment" component={ApartmentScreen} />
 			<HomeStackNavigator.Screen name="Location" component={LocationScreen} />
 			<HomeStackNavigator.Screen name="Roommate" component={RoommateScreen} />

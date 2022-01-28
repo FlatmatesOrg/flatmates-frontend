@@ -71,7 +71,7 @@ export default function FilterScreen({ navigation, route }) {
 					alert(response.message);
 				}
 			} else {
-				navigation.navigate("Apartment");
+				navigation.navigate("ApartmentList");
 			}
 		} catch (error) {
 			setIsLoading(false);

@@ -8,9 +8,11 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 export default function ApartmentItem({ item }) {
+	const navigation = useNavigation();
 	return (
 		<View style={styles.container}>
 			<FlatList
@@ -66,9 +68,12 @@ export default function ApartmentItem({ item }) {
 						style={styles.button}
 						mode="contained"
 						uppercase={false}
+						onPress={() => {
+							navigation.navigate("Apartment", { apartment: item });
+						}}
 						contentStyle={{ padding: 10 }}
 					>
-						Show Contacts
+						View Property
 					</Button>
 					<TouchableOpacity style={styles.menu}>
 						<MaterialCommunityIcons
